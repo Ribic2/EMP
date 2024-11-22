@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/menuFragment">
+
+    <!-- Menu Fragment -->
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.emp_vid_matej.fragment.MenuFragment"
+        android:label="Menu">
+        <action
+            android:id="@+id/action_menuFragment_to_movieFragment"
+            app:destination="@id/movieFragment" />
+    </fragment>
+
+    <!-- Movie Fragment -->
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="com.example.emp_vid_matej.fragment.MovieFragment"
+        android:label="Movies">
+        <argument
+            android:name="movie"
+            app:argType="com.example.emp_vid_matej.model.Movie" />
+    </fragment>
+</navigation>

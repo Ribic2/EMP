@@ -1,0 +1,162 @@
+[
+  {
+    "Title": "Taxi Driver",
+    "Year": "1976",
+    "Rated": "R",
+    "Released": "09 Feb 1976",
+    "Runtime": "114 min",
+    "Genre": "Crime, Drama",
+    "Director": "Martin Scorsese",
+    "Writer": "Paul Schrader",
+    "Actors": "Robert De Niro, Jodie Foster, Cybill Shepherd",
+    "Plot": "A mentally unstable veteran works as a nighttime taxi driver in New York City, where the perceived decadence and sleaze fuels his urge for violent action.",
+    "Language": "English, Spanish",
+    "Country": "United States",
+    "Awards": "Nominated for 4 Oscars. 22 wins & 21 nominations total",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BZDNhMGYwM2UtMTdlZS00MGQ1LWI2YzAtODY5YWI1MjYyNzRmXkEyXkFqcGc@._V1_SX300.jpg",
+    "Ratings": [
+      {
+        "Source": "Internet Movie Database",
+        "Value": "8.2/10"
+      },
+      {
+        "Source": "Rotten Tomatoes",
+        "Value": "89%"
+      },
+      {
+        "Source": "Metacritic",
+        "Value": "94/100"
+      }
+    ],
+    "Metascore": "94",
+    "imdbRating": "8.2",
+    "imdbVotes": "947,782",
+    "imdbID": "tt0075314",
+    "Type": "movie",
+    "DVD": "N/A",
+    "BoxOffice": "$28,262,574",
+    "Production": "N/A",
+    "Website": "N/A",
+    "Response": "True"
+  },
+  {
+    "Title": "The Godfather",
+    "Year": "1972",
+    "Rated": "R",
+    "Released": "24 Mar 1972",
+    "Runtime": "175 min",
+    "Genre": "Crime, Drama",
+    "Director": "Francis Ford Coppola",
+    "Writer": "Mario Puzo, Francis Ford Coppola",
+    "Actors": "Marlon Brando, Al Pacino, James Caan",
+    "Plot": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+    "Language": "English, Italian, Latin",
+    "Country": "United States",
+    "Awards": "Won 3 Oscars. 31 wins & 30 nominations total",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BZjhkYjE3NWMtNzNkOC00Y2FkLWI5NjEtNmNmZGI5M2I4M2QxXkEyXkFqcGc@._V1_SX300.jpg",
+    "Ratings": [
+      {
+        "Source": "Internet Movie Database",
+        "Value": "9.2/10"
+      },
+      {
+        "Source": "Rotten Tomatoes",
+        "Value": "97%"
+      },
+      {
+        "Source": "Metacritic",
+        "Value": "100/100"
+      }
+    ],
+    "Metascore": "100",
+    "imdbRating": "9.2",
+    "imdbVotes": "1,823,438",
+    "imdbID": "tt0068646",
+    "Type": "movie",
+    "DVD": "09 Oct 2001",
+    "BoxOffice": "$134,966,411",
+    "Production": "Paramount Pictures",
+    "Website": "N/A",
+    "Response": "True"
+  },
+  {
+    "Title": "Pulp Fiction",
+    "Year": "1994",
+    "Rated": "R",
+    "Released": "14 Oct 1994",
+    "Runtime": "154 min",
+    "Genre": "Crime, Drama",
+    "Director": "Quentin Tarantino",
+    "Writer": "Quentin Tarantino, Roger Avary",
+    "Actors": "John Travolta, Uma Thurman, Samuel L. Jackson",
+    "Plot": "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
+    "Language": "English, Spanish, French",
+    "Country": "United States",
+    "Awards": "Won 1 Oscar. 70 wins & 75 nominations total",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BZTA3NmRiNjQtZjUzZS00ZGM4LWI5NmEtOTcwZmI1MGZjNjNkXkEyXkFqcGc@._V1_SX300.jpg",
+    "Ratings": [
+      {
+        "Source": "Internet Movie Database",
+        "Value": "8.9/10"
+      },
+      {
+        "Source": "Rotten Tomatoes",
+        "Value": "92%"
+      },
+      {
+        "Source": "Metacritic",
+        "Value": "94/100"
+      }
+    ],
+    "Metascore": "94",
+    "imdbRating": "8.9",
+    "imdbVotes": "2,070,749",
+    "imdbID": "tt0110912",
+    "Type": "movie",
+    "DVD": "19 May 1998",
+    "BoxOffice": "$213,928,762",
+    "Production": "Miramax Films",
+    "Website": "N/A",
+    "Response": "True"
+  },
+  {
+    "Title": "Fight Club",
+    "Year": "1999",
+    "Rated": "R",
+    "Released": "15 Oct 1999",
+    "Runtime": "139 min",
+    "Genre": "Drama",
+    "Director": "David Fincher",
+    "Writer": "Chuck Palahniuk, Jim Uhls",
+    "Actors": "Brad Pitt, Edward Norton, Meat Loaf",
+    "Plot": "An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into something much, much more.",
+    "Language": "English",
+    "Country": "United States",
+    "Awards": "Nominated for 1 Oscar. 11 wins & 38 nominations total",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BN2Y3NDg0NjctNzQxNC00ODlmLTkzNzUtYTM5ZDk2ZmFmZTdlXkEyXkFqcGc@._V1_SX300.jpg",
+    "Ratings": [
+      {
+        "Source": "Internet Movie Database",
+        "Value": "8.8/10"
+      },
+      {
+        "Source": "Rotten Tomatoes",
+        "Value": "79%"
+      },
+      {
+        "Source": "Metacritic",
+        "Value": "66/100"
+      }
+    ],
+    "Metascore": "66",
+    "imdbRating": "8.8",
+    "imdbVotes": "2,046,746",
+    "imdbID": "tt0137523",
+    "Type": "movie",
+    "DVD": "06 Jun 2000",
+    "BoxOffice": "$101,209,702",
+    "Production": "20th Century Fox",
+    "Website": "N/A",
+    "Response": "True"
+  }
+]

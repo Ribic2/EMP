@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Go Back"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Top image grid -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/imageGrid"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="16dp"
+        android:background="#DDD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backButton" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="start"
+        android:text="Title"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageGrid" />
+
+    <!-- Ratings and Meta -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/metaContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <!-- Ratings -->
+        <TextView
+            android:id="@+id/meta_ratings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8.2/10 Ratings"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- IMDb Votes -->
+        <TextView
+            android:id="@+id/meta_votes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="947,782 Votes"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/meta_ratings"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Release -->
+        <TextView
+            android:id="@+id/meta_release"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Release: 1976"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/meta_ratings" />
+
+        <!-- Rated -->
+        <TextView
+            android:id="@+id/meta_rated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="Rated: R"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/meta_release"
+            app:layout_constraintTop_toBottomOf="@id/meta_votes" />
+
+        <!-- Duration -->
+        <TextView
+            android:id="@+id/meta_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Duration: 1h 54m"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/meta_release" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Description -->
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="A mentally unstable veteran works as a nighttime taxi driver in New York City..."
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/metaContainer" />
+
+    <!-- Info Table -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/infoTable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description">
+
+        <!-- Director -->
+        <TextView
+            android:id="@+id/director_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Director:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/director_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Martin Scorsese"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/director_label"
+            app:layout_constraintTop_toTopOf="@id/director_label" />
+
+        <!-- Writer -->
+        <TextView
+            android:id="@+id/writer_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Writer:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/director_label" />
+
+        <TextView
+            android:id="@+id/writer_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Paul Schrader"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/writer_label"
+            app:layout_constraintTop_toBottomOf="@id/director_label" />
+
+        <!-- Stars -->
+        <TextView
+            android:id="@+id/stars_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Stars:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/writer_label" />
+
+        <TextView
+            android:id="@+id/stars_names"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Robert De Niro, Jodie Foster, Cybill Shepherd"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/stars_label"
+            app:layout_constraintTop_toBottomOf="@id/writer_label" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
