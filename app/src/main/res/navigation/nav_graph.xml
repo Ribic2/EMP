@@ -22,4 +22,16 @@
             android:name="movie"
             app:argType="com.example.emp_vid_matej.model.Movie" />
     </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.emp_vid_matej.ui.main.ProfileFragment"
+        android:label="Profile"
+        />
+
+    <fragment
+        android:id="@+id/recommendationFragment"
+        android:name="com.example.emp_vid_matej.fragment.RecommendationFragment"
+        android:label="Recommendation"
+        />
 </navigation>

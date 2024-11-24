@@ -28,41 +28,34 @@ class MainActivity : AppCompatActivity() {
         // Set up BottomNavigationView with NavController
         binding.bottomNavigationView.setupWithNavController(navController)
 
-        // Handle reselection of the same tab
-        binding.bottomNavigationView.setOnItemReselectedListener { item ->
-            when (item.itemId) {
-                R.id.menuFragment -> {
-                    // If already on menuFragment, reset the stack or refresh content
-                    navController.popBackStack(R.id.menuFragment, false)
-                    Log.d("MainActivity", "Reselected menuFragment and refreshed content")
-                }
-                R.id.movieFragment -> {
-                    // If already on movieFragment, reset the stack to menuFragment
-                    navController.popBackStack(R.id.menuFragment, false)
-                    navController.navigate(R.id.menuFragment)
-                    Log.d("MainActivity", "Reselected movieFragment, navigating back to menuFragment")
-                }
-            }
-        }
-
-        // Handle navigation actions when tabs are selected
+        // Handle navigation actions when tabs are selected or reselected
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            val currentDestination = navController.currentDestination?.id
             when (item.itemId) {
                 R.id.menuFragment -> {
-                    if (navController.currentDestination?.id != R.id.menuFragment) {
-                        navController.navigate(R.id.menuFragment)
-                    }
+                    handleNavigation(R.id.menuFragment, currentDestination)
                     true
                 }
-                R.id.movieFragment -> {
-                    if (navController.currentDestination?.id != R.id.movieFragment) {
-                        navController.navigate(R.id.movieFragment)
-                    }
+                R.id.profileFragment -> {
+                    handleNavigation(R.id.profileFragment, currentDestination)
+                    true
+                }
+                R.id.recommendationFragment -> {
+                    handleNavigation(R.id.recommendationFragment, currentDestination)
                     true
                 }
                 else -> false
             }
         }
     }
-}
 
+    private fun handleNavigation(destinationId: Int, currentDestination: Int?) {
+        if (currentDestination == destinationId) {
+            navController.popBackStack(destinationId, false)
+            Log.d("MainActivity", "Reselected fragment with ID: $destinationId")
+        } else {
+            navController.navigate(destinationId)
+            Log.d("MainActivity", "Navigated to fragment with ID: $destinationId")
+        }
+    }
+}
