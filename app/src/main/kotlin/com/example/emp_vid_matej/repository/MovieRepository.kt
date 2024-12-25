@@ -2,15 +2,14 @@ package com.example.emp_vid_matej.repository
 
 import android.content.Context
 import com.example.emp_vid_matej.model.Movie
-import com.example.emp_vid_matej.repository.repositoryInterface.MovieRepository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 
-class MovieRepositoryImplementation: MovieRepository {
+class MovieRepository {
     private lateinit var movies: List<Movie>
 
-    override fun getMovie(context: Context): Movie {
+    fun getMovie(context: Context): Movie {
         if (!::movies.isInitialized) {
             loadMovies(context)
         }
@@ -19,7 +18,7 @@ class MovieRepositoryImplementation: MovieRepository {
         return movies.firstOrNull() ?: throw IllegalStateException("No movies found")
     }
 
-    override fun getMovies(context: Context): List<Movie> {
+    fun getMovies(context: Context): List<Movie> {
         if (!::movies.isInitialized) {
             loadMovies(context)
         }
@@ -37,7 +36,8 @@ class MovieRepositoryImplementation: MovieRepository {
     private fun loadMovies(context: Context) {
         val filePath = "mock.json"
 
-        val jsonString: String = context.assets.open(filePath).bufferedReader().use { it.readText() }
+        val jsonString: String =
+            context.assets.open(filePath).bufferedReader().use { it.readText() }
         val movieListType = object : TypeToken<List<Movie>>() {}.type
         movies = Gson().fromJson(jsonString, movieListType)
     }
