@@ -1,3 +1,8 @@
-package com.example.emp_vid_matej.ApiService.data.response
+package com.example.emp_vid_matej.apiService.data.response
 
-data class MovieFilterResponse()
+import com.example.emp_vid_matej.model.Genre
+
+data class MovieFilterResponse(
+    val genres: List<Genre>,
+    val ratings: List<Int>
+)

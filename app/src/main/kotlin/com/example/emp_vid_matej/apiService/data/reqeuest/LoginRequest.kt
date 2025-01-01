@@ -1,4 +1,6 @@
 package com.example.emp_vid_matej.apiService.data.reqeuest
 
-class LoginRequest {
-}
+data class LoginRequest(
+    val email: String,
+    val password: String
+)

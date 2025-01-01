@@ -1,35 +1,53 @@
-package com.example.emp_vid_matej.ui.main
+package com.example.emp_vid_matej.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.emp_vid_matej.R
+import androidx.fragment.app.viewModels
 import com.example.emp_vid_matej.databinding.ProfileFragmentBinding
+import com.example.emp_vid_matej.ui.main.AuthenticationActivity
+import com.example.emp_vid_matej.viewmodel.AuthViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class ProfileFragment : Fragment(R.layout.profile_fragment) {
+@AndroidEntryPoint
+class ProfileFragment : Fragment() {
 
-    private var _binding: ProfileFragmentBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: ProfileFragmentBinding
+    private val authViewModel: AuthViewModel by viewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = ProfileFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = ProfileFragmentBinding.bind(view)
 
-        // Set up the logout button
+        authViewModel.user()
+
+        // Observe the userResult live data
+        authViewModel.userResult.observe(viewLifecycleOwner) { userResponse ->
+            if (userResponse != null) {
+                binding.profileName.text = userResponse.user.name
+                binding.profileEmail.text = userResponse.user.email
+            }
+        }
+
         binding.logoutButton.setOnClickListener {
-            // Navigate to AuthenticationActivity (which contains loginFragment)
             val intent = Intent(requireContext(), AuthenticationActivity::class.java)
 
-            // Clear the back stack
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
 

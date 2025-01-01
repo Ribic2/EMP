@@ -1,3 +1,9 @@
-package com.example.emp_vid_matej.ApiService.data.response
+package com.example.emp_vid_matej.apiService.data.response
 
-data class UserResponse()
+import com.example.emp_vid_matej.model.Actions
+import com.example.emp_vid_matej.model.User
+
+data class UserResponse(
+    val user: User,
+    val actions: Actions
+)

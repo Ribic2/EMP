@@ -1,3 +1,11 @@
-package com.example.emp_vid_matej.Model
+package com.example.emp_vid_matej.model
 
-data class User()
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class User(
+    val id: Int,
+    val name: String,
+    val email: String
+) : Parcelable

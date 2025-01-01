@@ -1,4 +1,4 @@
-package com.example.emp_vid_matej.ApiService.data.response
+package com.example.emp_vid_matej.apiService.data.response.pagination
 
 data class PaginationLinks(
     val first: String,

@@ -1,3 +1,10 @@
-package com.example.emp_vid_matej.Model
+package com.example.emp_vid_matej.model
 
-data class Actions()
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class Actions(
+    val likes: List<ActionItem>,
+    val favourites: List<ActionItem>
+): Parcelable

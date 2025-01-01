@@ -4,31 +4,66 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.emp_vid_matej.R
+import androidx.fragment.app.viewModels
+import com.example.emp_vid_matej.viewmodel.AuthViewModel
+import com.example.emp_vid_matej.databinding.LoginFragmentBinding
 import com.example.emp_vid_matej.ui.main.AuthenticationActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
+    private lateinit var binding: LoginFragmentBinding
+    private val authViewModel: AuthViewModel by viewModels()
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.login_fragment, container, false)
+    ): View {
+        binding = LoginFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        val loginButton = view.findViewById<Button>(R.id.loginButton)
-        val registerText = view.findViewById<TextView>(R.id.registerText)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        loginButton.setOnClickListener {
-            (activity as AuthenticationActivity).navigateToMainPage()
+        // Check fi user is logged in already or not
+        authViewModel.user()
+        authViewModel.userResult.observe(viewLifecycleOwner) { userResponse ->
+            if (userResponse != null) {
+                (activity as AuthenticationActivity).navigateToMainPage()
+            }
         }
 
-        registerText.setOnClickListener {
-            (activity as AuthenticationActivity).showRegisterFragment()
+        binding.loginButton.setOnClickListener {
+            val email = binding.emailEditText.text.toString()
+            val password = binding.passwordEditText.text.toString()
+
+            authViewModel.login(email, password)
         }
 
-        return view
+        authViewModel.loginResult.observe(viewLifecycleOwner) { result ->
+            result?.let {
+                navigateToHome()
+            }
+        }
+
+        authViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                showError(it)
+            }
+        }
+    }
+
+    private fun navigateToHome() {
+        (activity as AuthenticationActivity).navigateToMainPage()
+        Toast.makeText(context, "Welcome", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showError(errorMessage: String) {
+        binding.errorTextView.text = errorMessage
     }
 }

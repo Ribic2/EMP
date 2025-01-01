@@ -1,45 +1,56 @@
 package com.example.emp_vid_matej.repository
 
-import android.content.Context
+import android.util.Log
+import com.example.emp_vid_matej.apiService.data.response.MovieFilterResponse
+import com.example.emp_vid_matej.apiService.data.response.MoviesResponse
+import com.example.emp_vid_matej.apiService.data.services.MovieApiService
 import com.example.emp_vid_matej.model.Movie
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import retrofit2.Response
+import javax.inject.Inject
 
+class MovieRepository @Inject constructor(
+    private val movieApiService: MovieApiService
+) {
 
-class MovieRepository {
-    private lateinit var movies: List<Movie>
+    suspend fun getMovies(): MoviesResponse {
+        val response = movieApiService.getMovies();
 
-    fun getMovie(context: Context): Movie {
-        if (!::movies.isInitialized) {
-            loadMovies(context)
+        if (response.isSuccessful) {
+            return response.body() ?: throw Exception("Empty response body")
+        } else {
+            throw Exception(response.errorBody()?.string() ?: "Unknown error")
         }
-
-        // Return the first movie as an example (you might want to improve this logic)
-        return movies.firstOrNull() ?: throw IllegalStateException("No movies found")
     }
 
-    fun getMovies(context: Context): List<Movie> {
-        if (!::movies.isInitialized) {
-            loadMovies(context)
-        }
-        return movies
-    }
+    suspend fun getMovieById(id: Int): Movie {
+        val response = movieApiService.getMovieById(id);
 
-    fun getMovieByName(context: Context, name: String): Movie? {
-        if (!::movies.isInitialized) {
-            loadMovies(context)
+        if (response.isSuccessful) {
+            return response.body() ?: throw Exception("Empty response body")
+        } else {
+            throw Exception(response.errorBody()?.string() ?: "Unknown error")
         }
 
-        return movies.find { it.Title.equals(name, ignoreCase = true) }
     }
 
-    private fun loadMovies(context: Context) {
-        val filePath = "mock.json"
+    suspend fun likeMovie(id: Int): Response<Void>? {
+        return null;
 
-        val jsonString: String =
-            context.assets.open(filePath).bufferedReader().use { it.readText() }
-        val movieListType = object : TypeToken<List<Movie>>() {}.type
-        movies = Gson().fromJson(jsonString, movieListType)
+    }
+
+    suspend fun getFilterData(): Response<MovieFilterResponse>? {
+        return null;
+
+    }
+
+    suspend fun favouriteMovie(id: Int): Response<Void>? {
+        return null;
+
+    }
+
+    suspend fun addComment(): Response<Void>? {
+        return null;
+
     }
 
 }

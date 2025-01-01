@@ -1,3 +1,7 @@
-package com.example.emp_vid_matej.ApiService.data.reqeuest
+package com.example.emp_vid_matej.apiService.data.reqeuest
 
-data class RegisterRequest()
+data class RegisterRequest(
+    val email: String,
+    val username: String,
+    val password: String
+)

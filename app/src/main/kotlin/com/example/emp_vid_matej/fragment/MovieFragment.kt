@@ -1,40 +1,67 @@
 package com.example.emp_vid_matej.fragment
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.emp_vid_matej.R
-import com.example.emp_vid_matej.model.Movie
+import androidx.navigation.fragment.navArgs
+import com.example.emp_vid_matej.adapter.CommentAdapter
+import com.example.emp_vid_matej.databinding.MovieFragmentBinding
+import com.example.emp_vid_matej.viewmodel.MovieViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import hilt_aggregated_deps._com_example_emp_vid_matej_fragment_MovieFragment_GeneratedInjector
 
-class MovieFragment: Fragment(R.layout.movie_fragment) {
+@AndroidEntryPoint
+class MovieFragment : Fragment() {
+    private val args: MovieFragmentArgs by navArgs()
+    private lateinit var binding: MovieFragmentBinding
+    private val movieViewModel: MovieViewModel by viewModels()
 
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = MovieFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Retrieve the Movie object
-        val movie: Movie = MovieFragmentArgs.fromBundle(requireArguments()).movie
+        val movieId = args.movie.id
 
-        // Populate UI with Movie data
-        view.findViewById<TextView>(R.id.title).text = movie.Title
-        view.findViewById<TextView>(R.id.meta_ratings).text = "${movie.imdbRating}/10 Ratings"
-        view.findViewById<TextView>(R.id.meta_votes).text = "${movie.imdbVotes} Votes"
-        view.findViewById<TextView>(R.id.meta_release).text = "Release: ${movie.Released}"
-        view.findViewById<TextView>(R.id.meta_rated).text = "Rated: ${movie.Rated}"
-        view.findViewById<TextView>(R.id.meta_duration).text = "Duration: ${movie.Runtime}"
+        movieViewModel.getMovieById(movieId)
 
-        view.findViewById<TextView>(R.id.description).text = movie.Plot
+        binding.backButtonText.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                val action = MovieFragmentDirections.actionMovieFragmentToMenuFragment()
 
-        view.findViewById<TextView>(R.id.director_name).text = movie.Director
-        view.findViewById<TextView>(R.id.writer_name).text = movie.Writer
-        view.findViewById<TextView>(R.id.stars_names).text = movie.Actors
+                findNavController().navigate(action)
+            }
+        })
 
-        // Handle Back button click
-        view.findViewById<ImageView>(R.id.backButton).setOnClickListener {
-            findNavController().navigateUp()
+        movieViewModel.movieResultsById.observe(viewLifecycleOwner) { movie ->
+            if (movie != null) {
+                binding.title.text = movie.originalTitle
+                binding.metaRatings.text = movie.avgVote.toString()
+                binding.metaRelease.text = movie.year.toString()
+                binding.metaVotes.text = movie.votes.toString()
+                binding.metaDuration.text = movie.duration
+                binding.description.text = movie.description
+                binding.directorName.text = movie.director
+                binding.writerName.text = movie.writers.toString()
+                binding.starsNames.text = movie.actors.toString()
+
+                // Setup comments adapter
+                val commentAdapter = CommentAdapter()
+                binding.commentsRecyclerView.adapter = commentAdapter
+                commentAdapter.submitList(movie.comments)
+            }
         }
 
     }

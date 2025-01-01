@@ -1,3 +1,11 @@
-package com.example.emp_vid_matej.Model
+package com.example.emp_vid_matej.model
 
-data class Comment()
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class Comment(
+    val id: String,
+    val comment: String,
+    val user: String,
+): Parcelable

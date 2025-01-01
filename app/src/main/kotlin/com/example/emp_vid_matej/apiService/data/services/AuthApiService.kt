@@ -1,21 +1,22 @@
-package com.example.emp_vid_matej.apiService
+package com.example.emp_vid_matej.apiService.data.services
 
 import com.example.emp_vid_matej.apiService.data.response.Token
 import com.example.emp_vid_matej.apiService.data.reqeuest.LoginRequest
+import com.example.emp_vid_matej.apiService.data.response.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface AuthApiService {
-    @POST("/auth/login")
+    @POST("login")
     suspend fun login(@Body request: LoginRequest): Response<Token>
 
-    @POST("/auth/register")
+    @POST("register")
     suspend fun register(@Body request: LoginRequest): Response<Token>
 
-    @POST("/auth/logout")
+    @POST("logout")
     suspend fun logout(@Body request: LoginRequest): Response<Token>
 
-    @POST("/auth/me")
-    suspend fun me(@Body request: LoginRequest): Response<Token>
+    @POST("me")
+    suspend fun me(): Response<UserResponse>
 }
