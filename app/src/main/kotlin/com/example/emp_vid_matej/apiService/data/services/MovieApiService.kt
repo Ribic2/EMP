@@ -1,9 +1,13 @@
 package com.example.emp_vid_matej.apiService.data.services
 
+import com.example.emp_vid_matej.apiService.data.reqeuest.MovieCommentRequest
+import com.example.emp_vid_matej.apiService.data.response.CommentResponse
 import com.example.emp_vid_matej.apiService.data.response.MovieFilterResponse
 import com.example.emp_vid_matej.apiService.data.response.MoviesResponse
+import com.example.emp_vid_matej.model.LikeStatus
 import com.example.emp_vid_matej.model.Movie
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -24,7 +28,7 @@ interface MovieApiService {
 
     // Like a movie by ID
     @POST("movie/{id}/like")
-    suspend fun likeMovie(@Path("id") id: Int): Response<Void>
+    suspend fun likeMovie(@Path("id") id: Int): Response<LikeStatus>
 
     // Get filter data
     @GET("movie/filter")
@@ -35,6 +39,6 @@ interface MovieApiService {
     suspend fun favouriteMovie(@Path("id") id: Int): Response<Void>
 
     // Add a comment to a movie
-    @POST("comment/add")
-    suspend fun addComment(): Response<Void>
+    @POST("movie/comment")
+    suspend fun addComment(@Body movieCommentResponse: MovieCommentRequest): Response<CommentResponse>
 }

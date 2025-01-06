@@ -1,6 +1,7 @@
 package com.example.emp_vid_matej.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.emp_vid_matej.adapter.CommentAdapter
+import com.example.emp_vid_matej.apiService.data.reqeuest.MovieCommentRequest
 import com.example.emp_vid_matej.databinding.MovieFragmentBinding
 import com.example.emp_vid_matej.viewmodel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,6 +48,27 @@ class MovieFragment : Fragment() {
             }
         })
 
+        binding.likeButton.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                movieViewModel.likeMovies(movieId);
+                movieViewModel.getMovieById(movieId)
+            }
+        })
+
+        binding.sendButton.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(p0: View?) {
+                val comment = binding.commentInput.text.toString()
+
+                if (comment.isNotEmpty()) {
+                    movieViewModel.postComment(
+                        MovieCommentRequest(movieId, comment)
+                    );
+                    movieViewModel.getMovieById(movieId)
+                }
+            }
+
+        });
+
         lifecycleScope.launchWhenCreated {
             movieViewModel.movieResultsById.collectLatest {
                 if (it != null) {
@@ -59,10 +82,17 @@ class MovieFragment : Fragment() {
                     binding.writerName.text = it.writers.toString()
                     binding.starsNames.text = it.actors.toString()
 
+                    // Set liked
+                    if (it.isLiked) {
+                        binding.likeButton.text = "un-like"
+                    } else {
+                        binding.likeButton.text = "like"
+                    }
+
                     // Setup comments adapter
                     val commentAdapter = CommentAdapter()
                     binding.commentsRecyclerView.adapter = commentAdapter
-                    commentAdapter.submitList(it.comments)
+
                 }
             }
         }

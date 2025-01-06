@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.emp_vid_matej.apiService.data.response.Token
 import com.example.emp_vid_matej.apiService.data.response.UserResponse
+import com.example.emp_vid_matej.model.User
 import com.example.emp_vid_matej.repository.AuthRepository
 import com.example.emp_vid_matej.service.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,10 +21,10 @@ class AuthViewModel @Inject constructor(
 
 
     private val _loginResult = MutableLiveData<Token?>()
-    private val _userResult = MutableLiveData<UserResponse>()
+    private val _userResult = MutableLiveData<User>()
 
     val loginResult: LiveData<Token?> = _loginResult
-    val userResult: LiveData<UserResponse> = _userResult
+    val userResult: LiveData<User> = _userResult
 
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error

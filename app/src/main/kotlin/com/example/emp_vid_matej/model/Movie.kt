@@ -8,6 +8,7 @@ data class Movie(
     val id: Int,
     val originalTitle: String?,
     val year: Int?,
+    val isLiked: Boolean,
     val duration: String?,
     val description: String?,
     val director: String?,

@@ -37,8 +37,8 @@ class ProfileFragment : Fragment() {
         // Observe the userResult live data
         authViewModel.userResult.observe(viewLifecycleOwner) { userResponse ->
             if (userResponse != null) {
-                binding.profileName.text = userResponse.user.name
-                binding.profileEmail.text = userResponse.user.email
+                binding.profileName.text = userResponse.name
+                binding.profileEmail.text = userResponse.email
             }
         }
 
