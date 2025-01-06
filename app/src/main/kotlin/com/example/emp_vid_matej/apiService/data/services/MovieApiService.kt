@@ -7,12 +7,16 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MovieApiService {
 
     // Get all movies
     @GET("movie")
-    suspend fun getMovies(): Response<MoviesResponse>
+    suspend fun getMovies(
+        @Query("q") q: String = "",
+        @Query("genres[]") genres: List<String> = emptyList()
+    ): Response<MoviesResponse>
 
     // Get a single movie by ID
     @GET("movie/{id}")

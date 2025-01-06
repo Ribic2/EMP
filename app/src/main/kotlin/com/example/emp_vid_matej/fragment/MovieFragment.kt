@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.emp_vid_matej.adapter.CommentAdapter
 import com.example.emp_vid_matej.databinding.MovieFragmentBinding
 import com.example.emp_vid_matej.viewmodel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import hilt_aggregated_deps._com_example_emp_vid_matej_fragment_MovieFragment_GeneratedInjector
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class MovieFragment : Fragment() {
@@ -45,25 +46,25 @@ class MovieFragment : Fragment() {
             }
         })
 
-        movieViewModel.movieResultsById.observe(viewLifecycleOwner) { movie ->
-            if (movie != null) {
-                binding.title.text = movie.originalTitle
-                binding.metaRatings.text = movie.avgVote.toString()
-                binding.metaRelease.text = movie.year.toString()
-                binding.metaVotes.text = movie.votes.toString()
-                binding.metaDuration.text = movie.duration
-                binding.description.text = movie.description
-                binding.directorName.text = movie.director
-                binding.writerName.text = movie.writers.toString()
-                binding.starsNames.text = movie.actors.toString()
+        lifecycleScope.launchWhenCreated {
+            movieViewModel.movieResultsById.collectLatest {
+                if (it != null) {
+                    binding.title.text = it.originalTitle
+                    binding.metaRatings.text = it.avgVote.toString()
+                    binding.metaRelease.text = it.year.toString()
+                    binding.metaVotes.text = it.votes.toString()
+                    binding.metaDuration.text = it.duration
+                    binding.description.text = it.description
+                    binding.directorName.text = it.director
+                    binding.writerName.text = it.writers.toString()
+                    binding.starsNames.text = it.actors.toString()
 
-                // Setup comments adapter
-                val commentAdapter = CommentAdapter()
-                binding.commentsRecyclerView.adapter = commentAdapter
-                commentAdapter.submitList(movie.comments)
+                    // Setup comments adapter
+                    val commentAdapter = CommentAdapter()
+                    binding.commentsRecyclerView.adapter = commentAdapter
+                    commentAdapter.submitList(it.comments)
+                }
             }
         }
-
     }
-
 }

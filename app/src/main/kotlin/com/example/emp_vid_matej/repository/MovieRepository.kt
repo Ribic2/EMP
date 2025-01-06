@@ -1,6 +1,7 @@
 package com.example.emp_vid_matej.repository
 
 import android.util.Log
+import com.example.emp_vid_matej.apiService.data.reqeuest.MovieFilter
 import com.example.emp_vid_matej.apiService.data.response.MovieFilterResponse
 import com.example.emp_vid_matej.apiService.data.response.MoviesResponse
 import com.example.emp_vid_matej.apiService.data.services.MovieApiService
@@ -12,8 +13,11 @@ class MovieRepository @Inject constructor(
     private val movieApiService: MovieApiService
 ) {
 
-    suspend fun getMovies(): MoviesResponse {
-        val response = movieApiService.getMovies();
+    suspend fun getMovies(movieFilter: MovieFilter): MoviesResponse {
+        val response = movieApiService.getMovies(
+            movieFilter.q,
+            movieFilter.genres
+        );
 
         if (response.isSuccessful) {
             return response.body() ?: throw Exception("Empty response body")

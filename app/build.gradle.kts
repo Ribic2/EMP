@@ -45,6 +45,7 @@ android {
 
 
 dependencies {
+    implementation("com.google.android.material:material")
     implementation("com.google.dagger:hilt-android:2.51.1")
     implementation(libs.androidx.room.common)
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")

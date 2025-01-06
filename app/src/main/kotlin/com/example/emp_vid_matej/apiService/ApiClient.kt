@@ -1,7 +1,6 @@
 package com.example.emp_vid_matej.apiService
 
 import android.content.Context
-import android.util.Log
 import com.example.emp_vid_matej.apiService.data.services.AuthApiService
 import com.example.emp_vid_matej.apiService.data.services.MovieApiService
 import com.example.emp_vid_matej.service.SessionManager
@@ -22,7 +21,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ApiClient {
 
-    private const val BASE_URL = "https://0754-89-212-174-235.ngrok-free.app/api/"
+    private const val BASE_URL = "https://30d0-89-212-174-235.ngrok-free.app/api/"
 
     @Provides
     @Singleton

@@ -1,15 +1,15 @@
 package com.example.emp_vid_matej.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.emp_vid_matej.apiService.data.reqeuest.MovieFilter
 import com.example.emp_vid_matej.apiService.data.response.MoviesResponse
-import com.example.emp_vid_matej.apiService.data.response.Token
 import com.example.emp_vid_matej.model.Movie
-import com.example.emp_vid_matej.repository.AuthRepository
 import com.example.emp_vid_matej.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,24 +18,29 @@ class MovieViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private val _movieResults = MutableLiveData<MoviesResponse>()
-    val movieResults: LiveData<MoviesResponse?> = _movieResults
+    // Filters
+    private val _currentFilter = MutableStateFlow(MovieFilter())
+    val currentFilter: StateFlow<MovieFilter> = _currentFilter
 
-    private val _error = MutableLiveData<String?>()
-    val error: LiveData<String?> = _error
+    private val _movieResults = MutableStateFlow(MoviesResponse())
+    val movieResults: StateFlow<MoviesResponse> = _movieResults
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    private val _error = MutableStateFlow<String?>(null)
+    val error: StateFlow<String?> = _error
 
-    private val _movieResultsById = MutableLiveData<Movie>()
-    val movieResultsById: LiveData<Movie> = _movieResultsById
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
 
-    fun getMovies(){
-        _isLoading.value = true;
+    private val _movieResultsById = MutableStateFlow<Movie?>(null)
+    val movieResultsById: StateFlow<Movie?> = _movieResultsById
+
+    fun getMovies(movieFilter: MovieFilter) {
+        _currentFilter.value = movieFilter
+        _isLoading.value = true
 
         viewModelScope.launch {
             try {
-                val response = movieRepository.getMovies()
+                val response = movieRepository.getMovies(movieFilter)
                 _movieResults.value = response
             } catch (e: Exception) {
                 _error.value = e.message
@@ -45,8 +50,8 @@ class MovieViewModel @Inject constructor(
         }
     }
 
-    fun getMovieById(id: Int){
-        _isLoading.value = true;
+    fun getMovieById(id: Int) {
+        _isLoading.value = true
 
         viewModelScope.launch {
             try {
