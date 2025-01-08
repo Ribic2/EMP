@@ -16,7 +16,7 @@ data class Movie(
     val actors: List<String>?,
     val avgVote: Float?,
     val votes: Int?,
-    val comments: List<Comment>?,
+    val comments: List<Comment>,
     val productionCompany: String?,
     val genresList: List<String>?
 ) : Parcelable

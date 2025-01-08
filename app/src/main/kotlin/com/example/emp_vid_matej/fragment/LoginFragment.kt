@@ -32,6 +32,7 @@ class LoginFragment : Fragment() {
 
         // Check fi user is logged in already or not
         authViewModel.user()
+
         authViewModel.userResult.observe(viewLifecycleOwner) { userResponse ->
             if (userResponse != null) {
                 (activity as AuthenticationActivity).navigateToMainPage()
@@ -44,6 +45,10 @@ class LoginFragment : Fragment() {
 
             authViewModel.login(email, password)
         }
+
+        binding.registerText.setOnClickListener({
+            (activity as AuthenticationActivity).showRegisterFragment()
+        })
 
         authViewModel.loginResult.observe(viewLifecycleOwner) { result ->
             result?.let {

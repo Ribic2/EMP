@@ -1,11 +1,12 @@
 package com.example.emp_vid_matej.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.emp_vid_matej.apiService.data.reqeuest.RegisterRequest
 import com.example.emp_vid_matej.apiService.data.response.Token
-import com.example.emp_vid_matej.apiService.data.response.UserResponse
 import com.example.emp_vid_matej.model.User
 import com.example.emp_vid_matej.repository.AuthRepository
 import com.example.emp_vid_matej.service.SessionManager
@@ -21,9 +22,11 @@ class AuthViewModel @Inject constructor(
 
 
     private val _loginResult = MutableLiveData<Token?>()
+    private val _registerResult = MutableLiveData<Token?>()
     private val _userResult = MutableLiveData<User>()
 
     val loginResult: LiveData<Token?> = _loginResult
+    val registerResult: LiveData<Token?> = _registerResult
     val userResult: LiveData<User> = _userResult
 
     private val _error = MutableLiveData<String?>()
@@ -47,6 +50,10 @@ class AuthViewModel @Inject constructor(
         }
     }
 
+    fun logout(){
+        sessionManager.removeToken()
+    }
+
     fun user(){
         _isLoading.value = true
         viewModelScope.launch {
@@ -61,12 +68,13 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun register(username: String, password: String, email: String) {
+    fun register(request: RegisterRequest) {
         _isLoading.value = true
         viewModelScope.launch {
             try {
-                val response = authRepository.login(username, password)
-                _loginResult.value = response
+                val response = authRepository.register(request)
+                _registerResult.value = response
+                sessionManager.saveAuthToken(response.token)
             } catch (e: Exception) {
                 _error.value = e.message
             } finally {

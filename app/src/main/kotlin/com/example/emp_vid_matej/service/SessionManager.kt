@@ -1,5 +1,6 @@
 package com.example.emp_vid_matej.service
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.emp_vid_matej.R
@@ -21,5 +22,9 @@ class SessionManager(context: Context) {
 
     fun fetchAuthToken(): String? {
         return prefs.getString(USER_TOKEN, null)
+    }
+
+    fun removeToken() {
+        prefs.edit().remove(USER_TOKEN).apply();
     }
 }

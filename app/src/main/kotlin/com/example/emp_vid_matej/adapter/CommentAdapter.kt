@@ -36,7 +36,7 @@ class CommentAdapter() :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(comment: Comment) {
             binding.comment.text = comment.comment
-            binding.username.text = comment.user
+            binding.username.text= comment.id.toString()
         }
     }
 }

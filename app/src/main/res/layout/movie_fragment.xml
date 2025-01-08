@@ -18,29 +18,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Go Back"
-            android:src="@drawable/ic_back" />
-
-        <!-- Back Button Text -->
-        <TextView
-            android:id="@+id/backButtonText"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
 
-        <Button
+
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Go Back"
+                android:src="@drawable/ic_back" />
+
+            <!-- Back Button Text -->
+            <TextView
+                android:id="@+id/backButtonText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Back"
+                android:gravity="center_vertical"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <com.google.android.material.button.MaterialButton
+            style="?attr/materialIconButtonStyle"
             android:layout_width="wrap_content"
-            android:text="Like"
             android:id="@+id/likeButton"
-            android:textSize="10sp"
-            android:layout_height="match_parent"/>
+            app:icon="@drawable/ic_like"
+            android:layout_height="match_parent"
+            />
 
     </LinearLayout>
 
@@ -305,17 +319,8 @@
                 app:layout_constraintTop_toBottomOf="@id/commentsHeader"
                 tools:listitem="@layout/comment_card" />
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- RecyclerView -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewComments"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:clipToPadding="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-          />
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,6 +42,25 @@ class MovieViewModel @Inject constructor(
     private val _movieComment = MutableStateFlow<LikeStatus?>(null)
     val movieComment: StateFlow<LikeStatus?> = _movieComment
 
+    private val _movieResultsRecommended = MutableStateFlow<List<Movie>?>(null);
+    val movieResultsRecommended: StateFlow<List<Movie>?> = _movieResultsRecommended
+
+    fun getRecommended() {
+        _isLoading.value = true
+
+        viewModelScope.launch {
+            try {
+                val response = movieRepository.getRecommended()
+
+                Log.d("recommendedMovies", response.toString())
+                _movieResultsRecommended.value = response
+            } catch (e: Exception) {
+                _error.value = e.message
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
 
     fun getMovies(movieFilter: MovieFilter) {
         _currentFilter.value = movieFilter

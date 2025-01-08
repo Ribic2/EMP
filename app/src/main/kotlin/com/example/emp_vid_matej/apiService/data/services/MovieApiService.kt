@@ -26,6 +26,9 @@ interface MovieApiService {
     @GET("movie/{id}")
     suspend fun getMovieById(@Path("id") id: Int): Response<Movie>
 
+    @GET("movie/recommended")
+    suspend fun getRecommended(): Response<List<Movie>>
+
     // Like a movie by ID
     @POST("movie/{id}/like")
     suspend fun likeMovie(@Path("id") id: Int): Response<LikeStatus>

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.emp_vid_matej.databinding.ProfileFragmentBinding
+import com.example.emp_vid_matej.service.SessionManager
 import com.example.emp_vid_matej.ui.main.AuthenticationActivity
 import com.example.emp_vid_matej.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,8 +44,8 @@ class ProfileFragment : Fragment() {
         }
 
         binding.logoutButton.setOnClickListener {
+            authViewModel.logout()
             val intent = Intent(requireContext(), AuthenticationActivity::class.java)
-
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }

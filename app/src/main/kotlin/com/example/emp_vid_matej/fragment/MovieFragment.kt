@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.emp_vid_matej.R
 import com.example.emp_vid_matej.adapter.CommentAdapter
 import com.example.emp_vid_matej.apiService.data.reqeuest.MovieCommentRequest
 import com.example.emp_vid_matej.databinding.MovieFragmentBinding
@@ -64,6 +66,7 @@ class MovieFragment : Fragment() {
                         MovieCommentRequest(movieId, comment)
                     );
                     movieViewModel.getMovieById(movieId)
+                    binding.commentInput.text?.clear();
                 }
             }
 
@@ -76,23 +79,30 @@ class MovieFragment : Fragment() {
                     binding.metaRatings.text = it.avgVote.toString()
                     binding.metaRelease.text = it.year.toString()
                     binding.metaVotes.text = it.votes.toString()
-                    binding.metaDuration.text = it.duration
+                    binding.metaDuration.text = it.duration + " min"
                     binding.description.text = it.description
                     binding.directorName.text = it.director
-                    binding.writerName.text = it.writers.toString()
-                    binding.starsNames.text = it.actors.toString()
+                    binding.writerName.text = it.writers.orEmpty().joinToString(", ")
+                    binding.starsNames.text = it.actors.orEmpty().joinToString(", ")
 
                     // Set liked
                     if (it.isLiked) {
-                        binding.likeButton.text = "un-like"
+                        binding.likeButton.setIconResource(
+                            R.drawable.ic_dislike
+                        )
                     } else {
-                        binding.likeButton.text = "like"
+                        binding.likeButton.setIconResource(
+                            R.drawable.ic_like
+                        )
                     }
 
                     // Setup comments adapter
                     val commentAdapter = CommentAdapter()
+                    binding.commentsRecyclerView.layoutManager =
+                        LinearLayoutManager(requireContext())
                     binding.commentsRecyclerView.adapter = commentAdapter
 
+                    commentAdapter.updateData(it.comments)
                 }
             }
         }

@@ -8,18 +8,30 @@ import com.example.emp_vid_matej.apiService.data.response.MoviesResponse
 import com.example.emp_vid_matej.apiService.data.services.MovieApiService
 import com.example.emp_vid_matej.model.LikeStatus
 import com.example.emp_vid_matej.model.Movie
-import retrofit2.Response
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(
     private val movieApiService: MovieApiService
 ) {
 
+    suspend fun getRecommended(): List<Movie>
+    {
+        val response = movieApiService.getRecommended();
+
+        if (response.isSuccessful) {
+            return response.body() ?: throw Exception("Empty response body")
+        } else {
+            throw Exception(response.errorBody()?.string() ?: "Unknown error")
+        }
+    }
+
     suspend fun getMovies(movieFilter: MovieFilter): MoviesResponse {
         val response = movieApiService.getMovies(
             movieFilter.q,
             movieFilter.genres
         );
+
+        Log.d("userrESPONSE", "here?");
 
         if (response.isSuccessful) {
             return response.body() ?: throw Exception("Empty response body")
