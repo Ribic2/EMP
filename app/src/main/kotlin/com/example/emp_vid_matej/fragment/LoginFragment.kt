@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.emp_vid_matej.R
 import com.example.emp_vid_matej.viewmodel.AuthViewModel
 import com.example.emp_vid_matej.databinding.LoginFragmentBinding
 import com.example.emp_vid_matej.ui.main.AuthenticationActivity
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -61,6 +64,32 @@ class LoginFragment : Fragment() {
                 showError(it)
             }
         }
+        authViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
+            if (!errorMessage.isNullOrEmpty()) {
+                showMaterial3Snackbar(errorMessage)
+                authViewModel.clearError() // Počisti napako, da se Snackbar ne ponavlja
+            }
+        }
+        Snackbar.make(
+            binding.root,               // View, na katerem se prikaže Snackbar
+            "Napaka pri prijavi!",      // Besedilo napake
+            Snackbar.LENGTH_LONG        // Dolžina prikaza
+        ).apply {
+            setBackgroundTint(
+                ContextCompat.getColor(context, R.color.error_color) // Barva ozadja
+            )
+            setTextColor(
+                ContextCompat.getColor(context, R.color.white)       // Barva besedila
+            )
+            setActionTextColor(
+                ContextCompat.getColor(context, R.color.black) // Barva gumba
+            )
+            setAction("Retry") {
+                // Dejanja, ko uporabnik klikne gumb
+            }
+            show()
+        }
+
     }
 
     private fun navigateToHome() {
@@ -70,5 +99,19 @@ class LoginFragment : Fragment() {
 
     private fun showError(errorMessage: String) {
         binding.errorTextView.text = errorMessage
+    }
+    private fun showMaterial3Snackbar(message: String) {
+        Snackbar.make(
+            binding.root, // Glavni "root" view, na katerem se prikaže Snackbar
+            message,
+            Snackbar.LENGTH_LONG // Čas prikaza
+        ).apply {
+            setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.error_color))
+            setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+            setAction("Retry") {
+                authViewModel.user() // Ponovi zahtevo za uporabniške podatke
+            }
+            show()
+        }
     }
 }
