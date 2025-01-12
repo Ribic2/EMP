@@ -66,7 +66,7 @@ class RecommendationFragment : Fragment() {
     }
 
     private fun navigateToMovieFragment(movie: Movie) {
-        val action = MenuFragmentDirections.actionMenuFragmentToMovieFragment(movie)
+        val action = RecommendationFragmentDirections.actionRecommendedFragmentToMovieFragment(movie)
         findNavController().navigate(action)
     }
 }
